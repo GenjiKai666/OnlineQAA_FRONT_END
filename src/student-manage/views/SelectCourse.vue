@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div style="padding: 10px 0">
+      <el-input
+          style="width: 200px"
+          class="ml-5"
+          placeholder="请输入关键词"
+          v-model="keyWord"
+      ></el-input>
+      <el-button type="primary" @click="load">搜索</el-button>
+    </div>
+  </div>
+  <div>
     <p>当前选中课程:{{ courses }}</p>
     <el-button type="primary" @click="commit">提交</el-button>
   </div>
@@ -40,6 +51,7 @@ export default {
 
   data() {
     return {
+      keyWord:null,
       tableData: [],
       id:null,
       courses:[],
@@ -69,6 +81,11 @@ export default {
       this.request
           .get(
               '/course/getcourses',
+              {
+                params: {
+                  keyWord:this.keyWord
+                },
+              }
           )
           .then((res) => {
             console.log(res)
