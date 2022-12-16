@@ -4,7 +4,6 @@ import StudentHome from '../views/StudentHome.vue'
 import StudentLogin from '../views/StudentLogin.vue'
 import StudentRegister from '../views/StudentRegister.vue'
 import Team from '../views/Team.vue'
-import TeacherRegister from '../views/TeacherRegister.vue'
 import TeacherLogin from '../views/TeacherLogin.vue'
 import Start from '../views/Start.vue'
 import TeacherHome from '../views/TeacherHome.vue'
@@ -26,11 +25,6 @@ const routes = [
   path: '/Student/Register',
   name: 'StudentRegister',
   component: StudentRegister
-},
-{
-  path: '/Teacher/Register',
-  name: 'TeacherRegister',
-  component: TeacherRegister
 },
 {
   path: '/Teacher/Login',

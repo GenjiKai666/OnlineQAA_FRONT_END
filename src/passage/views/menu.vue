@@ -44,7 +44,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 function toJump1() {
-  axios.get("http://localhost:8080/assignment/getuserinfo").then((res) => {
+  axios.get("http://localhost:8080/user/getuserinfo").then((res) => {
     console.log('AAAAAAA')
     console.log(res)
     if (res.data.id == null) {

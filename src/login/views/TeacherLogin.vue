@@ -2,8 +2,7 @@
     <div id="poster">
         <el-form class="login_container" label-position="left" label-width="80px">
             <h3 class="login_titile">
-                系统登陆
-                <el-button @click="toRegister">点我注册</el-button>
+                老师登陆
             </h3>
             <el-form-item label="用户名"  >
                 <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -32,10 +31,10 @@ export default {
     methods: {
       Login() {
         // console.log('submit!',this.loginForm);
-        axios.post('http://localhost:8080/teacher/login',this.loginForm).then((response)=>{
+        axios.post('http://localhost:8080/user/teacherlogin',this.loginForm).then((response)=>{
           console.log(response)
           let data =response.data;
-          if(data.success){
+          if(data === 1){
             this.loginForm = ''
             this.$message({
               message: '成功登陆！',

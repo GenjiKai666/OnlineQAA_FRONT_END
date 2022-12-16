@@ -2,9 +2,8 @@
     <div id="poster">
         <el-form class="login_container" label-position="left" label-width="80px">
             <h3 class="login_titile">
-                系统登陆
+                学生登陆
                 <el-button @click="toRegister">点我注册</el-button>
-                <el-button @click="toTeam">点我组队</el-button>
             </h3>
             <el-form-item label="用户名"  >
                 <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -34,9 +33,9 @@ export default {
       Login() {
         // console.log('submit!',this.loginForm);
         //         这里的8088是后端自己控制的端口号可以修改
-        axios.post('http://localhost:8080/student/login',this.loginForm).then((response)=>{
+        axios.post('http://localhost:8080/user/studentlogin',this.loginForm).then((response)=>{
           let data =response.data;
-          if(data.success){
+          if(data === 1){
             this.loginForm = ''
             this.$message({
               message: '成功登陆！',

@@ -7,14 +7,6 @@ import source2 from '../views/source2.vue'
 import teacher2 from '../views/teacher2.vue';
 import course2 from '../views/course2.vue';
 
-// import StudentHome from '../views/Login and Register views/StudentHome.vue'
-// import StudentLogin from '../views/Login and Register views/StudentLogin.vue'
-// import StudentRegister from '../views/Login and Register views/StudentRegister.vue'
-// import Team from '../views/Login and Register views/Team.vue'
-// import TeacherRegister from '../views/Login and Register views/TeacherRegister.vue'
-// import TeacherLogin from '../views/Login and Register views/TeacherLogin.vue'
-// import Start from '../views/Login and Register views/Start.vue'
-// import TeacherHome from '../views/Login and Register views/TeacherHome.vue'
 
 const routes = [
   {

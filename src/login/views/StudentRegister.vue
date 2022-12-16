@@ -8,7 +8,7 @@
         label-position="left"
         label-width="100px" >
       <h3 class="register_titile">
-        系统注册
+        学生注册
         <el-button @click="toLogin">去登陆界面</el-button>
       </h3>
 
@@ -21,6 +21,15 @@
         ></el-input>
       </el-form-item>
 
+      <el-form-item label="学号:" prop="student_id">
+        <el-input
+            type="text"
+            v-model="registerForm.student_id"
+            autocomplete="off"
+            placeholder="请输入学号"
+            prefix-icon="el-icon-user-solid"></el-input>
+      </el-form-item>
+
       <el-form-item label="密码:" prop="password">
         <el-input
             type="password"
@@ -30,42 +39,6 @@
             prefix-icon="el-icon-lock"></el-input>
       </el-form-item>
 
-
-      <el-form-item label="确认密码:" prop="checkPass">
-        <el-input
-            type="password"
-            v-model="registerForm.checkPass"
-            autocomplete="off"
-            placeholder="再次确认注册密码"
-            prefix-icon="el-icon-lock"></el-input>
-      </el-form-item>
-
-      <el-form-item label="电子邮箱:" prop="email">
-        <el-input
-            type="text"
-            v-model="registerForm.email"
-            autocomplete="off"
-            placeholder="请输入电子邮箱"
-            prefix-icon="el-icon-lock"></el-input>
-      </el-form-item>
-
-      <el-form-item label="电话号码:" prop="phone">
-        <el-input
-            type="text"
-            v-model="registerForm.phone"
-            autocomplete="off"
-            placeholder="请输入电话号码"
-            prefix-icon="el-icon-lock"></el-input>
-      </el-form-item>
-
-      <el-form-item label="班级号:" prop="className">
-        <el-input
-            type="text"
-            v-model="registerForm.className"
-            autocomplete="off"
-            placeholder="请输入班级号"
-            prefix-icon="el-icon-lock"></el-input>
-      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" style="width:100px;background:#505458;border:none" @click="submitForm" >注册</el-button>
@@ -87,23 +60,11 @@ export default {
         callback(new Error('请输入密码'));
       }
     };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
-      } else if (value !== this.registerForm.password) {
-        callback(new Error('两次输入密码不一致!'));
-      } else {
-        callback();
-      }
-    };
     return {
       registerForm: {
         password: '',
         checkPass: '',
         username: '',
-        email:'',
-        phone:'',
-        className:'',
 
       },
       rules: {
@@ -114,9 +75,6 @@ export default {
         password: [
           { validator: validatePass, trigger: 'blur' }
         ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
-        ]
       }
     };
   },
@@ -128,11 +86,11 @@ export default {
       this.$router.push({path:'/Student/Login'})
     },
     submitForm(formName) {
-      axios.post('http://localhost:8080/student/register',this.registerForm).then((response)=>{
+      axios.post('http://localhost:8080/user/studentregister',this.registerForm).then((response)=>{
         console.log(response);
         console.log(response.data);
         let data =response.data;
-        if(data.success){
+        if(data === 1){
           this.registerForm = ''
           this.$message({
             message: '成功注册！请返回登陆页面登陆',
