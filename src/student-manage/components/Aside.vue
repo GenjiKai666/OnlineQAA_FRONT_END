@@ -7,8 +7,13 @@
     </div>
     <!--      跳转到主页 index是跳转到路由配置好的地址-->
 
+    <el-menu-item-group>
+      <el-menu-item index="./personinfo">
+        <el-icon><el-icon-menu /></el-icon>
+        <span slot="title">个人信息</span>
+      </el-menu-item>
+    </el-menu-item-group>
 
-    <!-- TODO 迁移遗留问题 -->
     <el-menu-item-group>
       <el-menu-item index="./select-course">
         <el-icon><el-icon-menu /></el-icon>
@@ -18,9 +23,9 @@
 
     <!--    跳转到成绩管理-->
     <el-menu-item-group>
-      <el-menu-item index="./studentSubmit">
+      <el-menu-item index="./show-course-questions">
         <el-icon><el-icon-menu /></el-icon>
-        <span slot="title">作业提交</span>
+        <span slot="title">课程展示</span>
       </el-menu-item>
     </el-menu-item-group>
 

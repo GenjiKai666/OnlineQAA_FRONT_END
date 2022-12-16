@@ -10,9 +10,9 @@ const routes: RouteRecordRaw[] = [
     children: [
       //Manage里面的子路由 访问的路径是http://localhost:8080/user “/”是父路由,user是子路由
       {
-        path: '/ShowGrade',
-        name: 'Score',
-        component: () => import('@/grade-manage/views/ShowGrade.vue'),
+        path: '/personinfo',
+        name: 'Personinfo',
+        component: () => import('../views/PersonInfo.vue'),
       },
       {
         path: '/select-course',
@@ -20,9 +20,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/SelectCourse.vue'),
       },
       {
-        path: '/studentSubmit',
-        name: 'studentSubmit',
-        component: () => import('../views/Student.vue'),
+        path: '/show-course-questions',
+        name: 'Show-Course-Questions',
+        component: () => import('../views/ShowCourseQuestions.vue'),
       },
     ],
   },
