@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column prop="time" label="时间">
       </el-table-column>
-      <el-table-column prop="teacher" label="任课教师">
+      <el-table-column prop="teacherName" label="任课教师">
       </el-table-column>
       <el-table-column prop="description" label="课程描述">
       </el-table-column>
