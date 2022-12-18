@@ -40,7 +40,7 @@ export default {
               message: '成功登陆！',
               type: 'success'
             });
-            window.location.href="/grade-manage/"
+            window.location.href="/teacher/"
           }else{
             this.$message.error('用户名或密码错误！登录失败！');
           }

@@ -39,7 +39,7 @@
 
 <script>
 import Aside from "@/student-manage/components/Aside.vue";
-import Header from "@/grade-manage/components/Header.vue";
+import Header from "@/teacher/components/Header.vue";
 export default {
   components: {
     Aside,
