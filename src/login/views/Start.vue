@@ -4,8 +4,8 @@
             <h3 class="login_titile">
                 欢迎
             </h3>
-            <el-button @click="toTeacher">教师登陆</el-button>
-            <el-button @click="toStudent">学生登陆</el-button>
+            <el-button @click="toAdmin">管理员登陆</el-button>
+            <el-button @click="toUser">用户登陆</el-button>
           <el-button @click="back">返回</el-button>
         </el-form>
     </div>
@@ -21,11 +21,11 @@ export default {
       }
     },
     methods: {
-      toStudent(){
-        this.$router.push({path:'/Student/Login'})
+      toUser(){
+        this.$router.push({path:'/user/login'})
       },
-      toTeacher(){
-        this.$router.push({path:'/Teacher/Login'})
+      toAdmin(){
+        this.$router.push({path:'/admin/login'})
       },
       back(){
         window.location.href="/"

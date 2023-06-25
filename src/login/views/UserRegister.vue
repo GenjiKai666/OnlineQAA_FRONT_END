@@ -8,7 +8,7 @@
         label-position="left"
         label-width="100px" >
       <h3 class="register_titile">
-        学生注册
+        用户注册
         <el-button @click="toLogin">去登陆界面</el-button>
       </h3>
 
@@ -19,15 +19,6 @@
             placeholder="请输入注册的用户名"
             prefix-icon="el-icon-user-solid"
         ></el-input>
-      </el-form-item>
-
-      <el-form-item label="学号:" prop="student_id">
-        <el-input
-            type="text"
-            v-model="registerForm.student_id"
-            autocomplete="off"
-            placeholder="请输入学号"
-            prefix-icon="el-icon-user-solid"></el-input>
       </el-form-item>
 
       <el-form-item label="密码:" prop="password">
@@ -83,20 +74,27 @@ export default {
       this.$refs[formName].resetFields();
     },
     toLogin(){
-      this.$router.push({path:'/Student/Login'})
+      this.$router.push({path:'/user/login'})
     },
     submitForm(formName) {
-      axios.post('http://localhost:8080/user/studentregister',this.registerForm).then((response)=>{
+      axios({
+        method:"post",
+        url:"http://localhost:8080/auth/user/register",
+        params:{
+          username:this.registerForm.username,
+          password:this.registerForm.password
+        }
+      }).then((response)=>{
         console.log(response);
         console.log(response.data);
         let data =response.data;
-        if(data === 1){
+        if(data.code === 200){
           this.registerForm = ''
           this.$message({
             message: '成功注册！请返回登陆页面登陆',
             type: 'success'
           });
-          this.$router.push({path:'/Student/Login'})
+          this.$router.push({path:'/user/login'})
         }
         else{
           this.$message.error('用户已存在！注册失败！');

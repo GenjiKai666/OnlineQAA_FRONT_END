@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
 
 import StudentHome from '../views/StudentHome.vue'
-import StudentLogin from '../views/StudentLogin.vue'
-import StudentRegister from '../views/StudentRegister.vue'
-import Team from '../views/Team.vue'
-import TeacherLogin from '../views/TeacherLogin.vue'
+import UserLogin from '../views/UserLogin.vue'
+import UserRegister from '../views/UserRegister.vue'
+import AdminLogin from '../views/AdminLogin.vue'
 import Start from '../views/Start.vue'
 import TeacherHome from '../views/TeacherHome.vue'
 import Student_manage from '../../student-manage/views/Manage.vue'
@@ -17,19 +16,19 @@ const routes = [
   component: Start
 },
 {
-  path: '/Student/Login',
-  name: 'StudentLogin',
-  component: StudentLogin
+  path: '/user/login',
+  name: 'UserLogin',
+  component: UserLogin
 },
 {
-  path: '/Student/Register',
-  name: 'StudentRegister',
-  component: StudentRegister
+  path: '/user/register',
+  name: 'UserRegister',
+  component: UserRegister
 },
 {
-  path: '/Teacher/Login',
-  name: 'TeacherLogin',
-  component: TeacherLogin
+  path: '/admin/login',
+  name: 'AdminLogin',
+  component: AdminLogin
 },
 {
   path: '/Home/StudentHome',
@@ -40,11 +39,6 @@ const routes = [
   path: '/Home/TeacherHome',
   name: 'TeacherHome',
   component: TeacherHome
-},
-{
-  path: '/Student/Team',
-  name: 'Team',
-  component: Team
 },
   {
     path: '/student_manage',

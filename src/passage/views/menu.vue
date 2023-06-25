@@ -26,7 +26,7 @@
 
     <!--  <a herf="http://localhost:5173/login/" style="width: 50px">-->
 
-    <el-menu-item @click="toJump1">教务系统</el-menu-item>
+    <el-menu-item @click="toJump1">预约系统</el-menu-item>
 
     <!--  </a>-->
 
@@ -44,20 +44,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 function toJump1() {
-  axios.get("http://localhost:8080/user/getuserinfo").then((res) => {
-    console.log('AAAAAAA')
-    console.log(res)
-    if (res.data.id == null) {
-      window.location.href = "http://localhost:5173/login/"
-    } else if (res.data.teacher == 1) {
-      window.location.href = "http://localhost:5173/grade-manage/"
-    } else if (res.data.teacher == 0) {
-      window.location.href = "http://localhost:5173/student-manage/"
-    }
-
-  }).catch(err=>{
-    alert(err);
-  })
+  window.location.href = "http://localhost:5173/login/"
 }
 </script>
 

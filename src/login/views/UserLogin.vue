@@ -2,7 +2,8 @@
     <div id="poster">
         <el-form class="login_container" label-position="left" label-width="80px">
             <h3 class="login_titile">
-                老师登陆
+                用户登陆
+                <el-button @click="toRegister">点我注册</el-button>
             </h3>
             <el-form-item label="用户名"  >
                 <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -17,9 +18,10 @@
 <script>
 
 import axios from "@/localAxios";
+import Cookies from 'js-cookie';
 
 export default {
-    name:'TeacherLogin',
+    name:'UserLogin',
     data() {
       return {
         loginForm: {
@@ -31,26 +33,31 @@ export default {
     methods: {
       Login() {
         // console.log('submit!',this.loginForm);
-        axios.post('http://localhost:8080/user/teacherlogin',this.loginForm).then((response)=>{
-          console.log(response)
+        //         这里的8088是后端自己控制的端口号可以修改
+        axios({
+          method:"post",
+          url:"http://localhost:8080/auth/user/login",
+          params:{
+            username:this.loginForm.username,
+            password:this.loginForm.password
+          }
+        }).then((response)=>{
           let data =response.data;
-          if(data === 1){
+          if(data.code=== 200){
+            Cookies.set(this.loginForm.username, data.data, { expires: 1 });
             this.loginForm = ''
             this.$message({
               message: '成功登陆！',
               type: 'success'
             });
-            window.location.href="/teacher/"
+            window.location.href="http://localhost:5173/student-manage/"
           }else{
             this.$message.error('用户名或密码错误！登录失败！');
           }
-        }).catch(err=>{
-          console.log('AAA')
-          console.log(err)
         })
       },
       toRegister(){
-        this.$router.push({path:'/Teacher/Register'})
+        this.$router.push({path:'/user/register'})
       },
     }
 }
