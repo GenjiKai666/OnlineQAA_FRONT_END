@@ -32,7 +32,7 @@ export default defineConfig({
         index: resolve(__dirname, "src/index.html"),
         // 一个入口页面的配置样例，可以尝试注释它，看看注释前后的 `npm run build` 的执行结果。
         // 浏览器访问的链接是去掉src的部分，即 localhost:port/example/index.html
-        gradeManage: resolve(__dirname, "src/teacher/index.html"),
+        gradeManage: resolve(__dirname, "src/admin/index.html"),
       },
     },
   },

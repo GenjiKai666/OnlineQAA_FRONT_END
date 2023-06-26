@@ -15,26 +15,21 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/PersonInfo.vue'),
       },
       {
-        path: '/select-course',
-        name: 'Select-Course',
-        component: () => import('../views/SelectCourse.vue'),
+        path: '/reserve',
+        name: 'reserve',
+        component: () => import('../views/Reserve.vue'),
       },
       {
-        path: '/show-course-questions',
-        name: 'Show-Course-Questions',
-        component: () => import('../views/ShowCourseQuestions.vue'),
-      },
-      {
-        path: '/question',
-        name: 'Questions',
-        component: () => import('../views/Question.vue'),
+        path: '/reservations',
+        name: 'reservations',
+        component: () => import('../views/Reservations.vue'),
       },
     ],
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory("/student-manage"),
+  history: createWebHistory("/user"),
   routes,
 })
 

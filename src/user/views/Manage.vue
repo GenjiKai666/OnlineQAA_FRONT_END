@@ -38,8 +38,8 @@
 </style>
 
 <script>
-import Aside from "@/teacher/components/Aside.vue";
-import Header from "@/teacher/components/Header.vue";
+import Aside from "@/user/components/Aside.vue";
+import Header from "@/admin/components/Header.vue";
 export default {
   components: {
     Aside,

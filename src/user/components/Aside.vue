@@ -3,16 +3,32 @@
     active-text-color="#ffd04b" :collapse="isCollapse" :collapse-transition="false" router>
     <div style="height: 50px; line-height: 60px; text-align: center">
       <img src="../assets/logo.png" alt="" style="width: 20px; position: relative; top: 5px; margin-right: 5px" />
-      <b style="color: wheat" v-show="logotextshow">老师页面</b>
+      <b style="color: wheat" v-show="logotextshow">学生页面</b>
     </div>
     <!--      跳转到主页 index是跳转到路由配置好的地址-->
 
     <el-menu-item-group>
-      <el-menu-item index="/answer">
+      <el-menu-item index="./personinfo">
         <el-icon><el-icon-menu /></el-icon>
-        <span slot="title">答疑</span>
+        <span slot="title">个人信息</span>
       </el-menu-item>
     </el-menu-item-group>
+
+    <el-menu-item-group>
+      <el-menu-item index="./reserve">
+        <el-icon><el-icon-menu /></el-icon>
+        <span slot="title">预约</span>
+      </el-menu-item>
+    </el-menu-item-group>
+
+    <el-menu-item-group>
+      <el-menu-item index="./reservations">
+        <el-icon><el-icon-menu /></el-icon>
+        <span slot="title">订单查询</span>
+      </el-menu-item>
+    </el-menu-item-group>
+    
+
   </el-menu>
 </template>
 

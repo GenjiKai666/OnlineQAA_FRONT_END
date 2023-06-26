@@ -6,7 +6,7 @@ import UserRegister from '../views/UserRegister.vue'
 import AdminLogin from '../views/AdminLogin.vue'
 import Start from '../views/Start.vue'
 import TeacherHome from '../views/TeacherHome.vue'
-import Student_manage from '../../student-manage/views/Manage.vue'
+import Student_manage from '../../user/views/Manage.vue'
 
 const routes = [
 

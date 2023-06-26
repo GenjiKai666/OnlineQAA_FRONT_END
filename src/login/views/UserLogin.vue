@@ -44,13 +44,14 @@ export default {
         }).then((response)=>{
           let data =response.data;
           if(data.code=== 200){
-            Cookies.set(this.loginForm.username, data.data, { expires: 1 });
+            Cookies.set("token", data.data, { expires: 1 });
+            Cookies.set("username", this.loginForm.username, { expires: 1 });
             this.loginForm = ''
             this.$message({
               message: '成功登陆！',
               type: 'success'
             });
-            window.location.href="http://localhost:5173/student-manage/"
+            window.location.href="http://localhost:5173/user/"
           }else{
             this.$message.error('用户名或密码错误！登录失败！');
           }

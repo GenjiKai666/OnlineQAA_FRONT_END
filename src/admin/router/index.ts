@@ -10,15 +10,19 @@ const routes: RouteRecordRaw[] = [
     children: [
       //Manage里面的子路由 访问的路径是http://localhost:8080/user “/”是父路由,user是子路由
       {
-        path: '/answer',
-        component: () => import('../views/Teacher.vue')
+        path: '/facility',
+        component: () => import('../views/FacilityManage.vue')
+      },
+      {
+        path: '/user',
+        component: () => import('../views/UserManage.vue')
       },
     ],
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory("/teacher"),
+  history: createWebHistory("/admin"),
   routes,
 })
 

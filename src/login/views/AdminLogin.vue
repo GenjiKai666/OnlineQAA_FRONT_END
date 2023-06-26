@@ -42,13 +42,14 @@ export default {
           console.log(response)
           let data =response.data;
           if(data.code === 200){
-            Cookies.set(this.loginForm.username, data.data, { expires: 1 });
+            Cookies.set("username", this.loginForm.username, { expires: 1 });
+            Cookies.set("token", data.data, { expires: 1 });
             this.loginForm = ''
             this.$message({
               message: '成功登陆！',
               type: 'success'
             });
-            window.location.href="/teacher/"
+            window.location.href="/admin/"
           }else{
             this.$message.error('用户名或密码错误！登录失败！');
           }
