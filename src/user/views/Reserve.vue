@@ -1,63 +1,113 @@
 <template>
   <div>
-    <div style="padding: 10px 0">
-      <el-input
-          style="width: 200px"
-          class="ml-5"
-          placeholder="请输入关键词"
-          v-model="keyWord"
-      ></el-input>
-      <el-button type="primary" @click="load">搜索</el-button>
-    </div>
-  </div>
-  <div>
-    <p>当前选中课程:{{ courses }}</p>
-    <el-button type="primary" @click="commit">提交</el-button>
-  </div>
-  <div>
     <el-table
         :data="tableData"
         stripe
         :header-cell-class-name="headerBg"
     >
       <!--            这是一个表格多选代码-->
-      <el-table-column prop="id" label="ID" width="50">
+      <el-table-column prop="facilityName" label="设施名">
       </el-table-column>
-      <el-table-column prop="name" label="课程名称">
+      <el-table-column prop="location" label="地点">
       </el-table-column>
-      <el-table-column prop="time" label="时间">
+      <el-table-column prop="capacity" label="使用人数">
       </el-table-column>
-      <el-table-column prop="teacherName" label="任课教师">
+      <el-table-column prop="startTime" label="预约时间起">
       </el-table-column>
-      <el-table-column prop="description" label="课程描述">
+      <el-table-column prop="endTime" label="预约时间止">
       </el-table-column>
-      <el-table-column prop="rate" label="课程评分">
+      <el-table-column prop="durationMin" label="最短预约时间/分">
       </el-table-column>
-      <el-table-column label="选择" >
+      <el-table-column prop="durationMax" label="最长预约时间/分">
+      </el-table-column>
+      <el-table-column label="预约" >
         <template  #default="scope">
           <el-button type="success" @click="handleSelect(scope.row)"
-          >选择<el-icon><el-icon-edit /></el-icon
+          >点击预约<el-icon><el-icon-edit /></el-icon
           ></el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog v-model="dialogTableVisible" title="预约信息">
+      <el-scrollbar height="400px">
+        <p v-for="item in reservations" :key="item" class="scrollbar-demo-item">{{ item }}</p>
+      </el-scrollbar>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogReserveVisible = true">
+          预约
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="dialogReserveVisible" title="预约">
+      <el-form :model="form">
+        <el-form-item label="日期" :label-width="formLabelWidth">
+        <el-date-picker
+          v-model="form.date"
+          type="date"
+          placeholder="Pick a day"
+          :disabled-date="disabledDate"
+          :shortcuts="shortcuts"
+          :size="size"
+        />
+        </el-form-item>
+        <el-form-item label="预约时间起" :label-width="formLabelWidth">
+          <el-time-select
+            v-model="this.form.startTime"
+            start="01:00"
+            step="00:30"
+            end="23:00"
+            placeholder="Select time"
+          />
+        </el-form-item>
+        <el-form-item label="预约时间止" :label-width="formLabelWidth">
+          <el-time-select
+            v-model="this.form.endTime"
+            start="01:00"
+            step="00:30"
+            end="23:00"
+            placeholder="Select time"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogReserveVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleSubmit">
+          提交
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 
 <script>
 import axios from "@/localAxios";
+import Cookies from "js-cookie";
 export default {
 
   data() {
     return {
+      facilityId:null,
       keyWord:null,
       tableData: [],
       id:null,
       courses:[],
-      form: {},
+      form: {
+        startTime:null,
+        endTime:null,
+        date:null
+      },
+      reservations:[],
       //默认对话弹框不要展示
-      dialogFormVisible: false,
+      dialogTableVisible: false,
+      dialogReserveVisible:false,
       //隐藏和显示的图标
       lcon: 'el-icon-s-fold',
       //隐藏显示的逻辑转换
@@ -77,31 +127,65 @@ export default {
   },
   methods: {
     load() {
-      //请求用户信息
-      this.request
-          .get(
-              '/course/getcourses',
-              {
-                params: {
-                  keyWord:this.keyWord
-                },
-              }
-          )
-          .then((res) => {
-            console.log(res)
-            this.tableData = res;
-          })
+      //请求设施信息
+      let username = Cookies.get("username");
+      let token = Cookies.get("token");
+      axios({
+        method:"post",
+        url:"http://localhost:8081/facilities-vue",
+        params:{
+          operator:username,
+          token:token,
+          type:"user"
+        }
+      })
+        .then((res) => {
+          this.tableData = res.data.data;
+        })
     },
     handleSelect(e) {
-      if(this.courses.includes(e.id) === false){
-        this.courses.push(e.id)
-      }
-    },
-    commit(){
-      axios.post('http://localhost:8080/course/select',this.courses).then((response)=>{
-        let data =response.data;
-        alert(data)
+      //请求设施信息
+      let username = Cookies.get("username");
+      let token = Cookies.get("token");
+      axios({
+        method:"post",
+        url:"http://localhost:8082/reservation/info",
+        params:{
+          operator:username,
+          token:token,
+          type:"user",
+          facility_id:e.id
+        }
       })
+        .then((res) => {
+          this.reservations = res.data.data;
+          this.dialogTableVisible = true;
+          this.facilityId = e.id
+        })
+    },
+    handleSubmit(){
+      let username = Cookies.get("username");
+      let token = Cookies.get("token");
+      axios({
+        method:"post",
+        url:"http://localhost:8082/reserve-vue",
+        data:{
+          facilityId:this.facilityId,
+          startTime:this.form.startTime,
+          endTime:this.form.endTime,
+          date:this.form.date
+        },
+        params:{
+          operator:username,
+          token:token,
+          type:"user"
+        }
+      })
+        .then((res) => {
+          this.dialogTableVisible = false;
+          this.dialogReserveVisible = false;
+          this.handleSelect();
+        })
     },
   },
 }

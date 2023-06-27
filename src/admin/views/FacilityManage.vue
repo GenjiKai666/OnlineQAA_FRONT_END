@@ -91,7 +91,7 @@
     </el-dialog>
 
     <el-dialog v-model="dialogFormVisible_insert" title="发布设施">
-      <el-form :model="form">
+      <el-form :model="form_insert">
         <el-form-item label="设施名" :label-width="formLabelWidth">
           <el-input v-model="this.form_insert.facilityName" autocomplete="off" />
         </el-form-item>
@@ -239,7 +239,8 @@ export default {
           facility_id:facilityid
         }
       }).then((res) => {
-        alert(res.data.data.msg)
+        this.dialogFormVisible = false
+        this.load()
       })
       this.dialogFormVisible = false
       this.load()
@@ -256,7 +257,8 @@ export default {
           token:token,
         },
       }).then((res) => {
-        this.$message
+        this.dialogFormVisible = false
+        this.load()
       })
       this.dialogFormVisible = false
       this.load()
@@ -274,9 +276,9 @@ export default {
         },
       }).then((res) => {
         console.log(res)
+        this.dialogFormVisible_insert = false;
+        this.load()
       })
-      this.dialogFormVisible_insert = false;
-      this.load()
     }
   },
 }

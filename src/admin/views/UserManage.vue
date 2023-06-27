@@ -101,8 +101,9 @@ export default {
           type: "admin",
           id:id
         }
+      }).then((res)=>{
+        this.load()
       })
-      this.load()
     },
     handleUnBlock(e) {
       let username = Cookies.get("username");
@@ -117,8 +118,9 @@ export default {
           type: "admin",
           id:id
         }
+      }).then((res)=>{
+        this.load()
       })
-      this.load()
     },
   }
 };
