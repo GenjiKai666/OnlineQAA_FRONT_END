@@ -20,10 +20,10 @@
       </el-table-column>
       <el-table-column prop="durationMax" label="最长预约时间/分">
       </el-table-column>
-      <el-table-column label="预约" >
+      <el-table-column label="详情" >
         <template  #default="scope">
           <el-button type="success" @click="handleSelect(scope.row)"
-          >点击预约<el-icon><el-icon-edit /></el-icon
+          >详情<el-icon><el-icon-edit /></el-icon
           ></el-button>
         </template>
       </el-table-column>
@@ -36,6 +36,9 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogTableVisible = false">取消</el-button>
+        <el-button type="info" @click="dialogCommentVisible = true">
+          查看评价
+        </el-button>
         <el-button type="primary" @click="dialogReserveVisible = true">
           预约
         </el-button>
@@ -83,6 +86,34 @@
       </span>
       </template>
     </el-dialog>
+
+    <el-dialog v-model="dialogCommentVisible" title="评价信息">
+      <el-form-item label="平均评分" :label-width="formLabelWidth">
+        <el-rate
+          v-model="form_comment.avgRate"
+          disabled
+          show-score
+          text-color="#ff9900"
+          score-template="{value}"
+        />
+      </el-form-item>
+      <el-table
+        :data="form_comment.comments"
+        stripe
+        :header-cell-class-name="headerBg"
+      >
+        <!--            这是一个表格多选代码-->
+        <el-table-column prop="rate" label="评分">
+        </el-table-column>
+        <el-table-column prop="content" label="评价">
+        </el-table-column>
+      </el-table>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="dialogCommentVisible = false">好的</el-button>
+      </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -95,6 +126,7 @@ export default {
   data() {
     return {
       facilityId:null,
+      formLabelWidth:'140px',
       keyWord:null,
       tableData: [],
       id:null,
@@ -104,10 +136,13 @@ export default {
         endTime:null,
         date:null
       },
+      form_comment:{
+      },
       reservations:[],
       //默认对话弹框不要展示
       dialogTableVisible: false,
       dialogReserveVisible:false,
+      dialogCommentVisible:false,
       //隐藏和显示的图标
       lcon: 'el-icon-s-fold',
       //隐藏显示的逻辑转换
@@ -149,7 +184,7 @@ export default {
       let token = Cookies.get("token");
       axios({
         method:"post",
-        url:"http://localhost:8082/reservation/info",
+        url:"http://localhost:8082/info",
         params:{
           operator:username,
           token:token,
@@ -158,7 +193,9 @@ export default {
         }
       })
         .then((res) => {
-          this.reservations = res.data.data;
+          this.reservations = res.data.data.reservationInfo;
+          this.form_comment.avgRate = res.data.data.avgRate;
+          this.form_comment.comments = res.data.data.commentInfo;
           this.dialogTableVisible = true;
           this.facilityId = e.id
         })
