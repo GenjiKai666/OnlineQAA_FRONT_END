@@ -150,6 +150,7 @@
 <script>
 import axios from "@/localAxios";
 import Cookies from 'js-cookie';
+import { ElMessage } from "element-plus";
 
 
 export default {
@@ -239,11 +240,21 @@ export default {
           facility_id:facilityid
         }
       }).then((res) => {
+        if (res.data.code === 200){
+          ElMessage({
+            message: '删除成功',
+            type: 'success',
+          })
+        }
+        else {
+          ElMessage({
+            message: '删除失败',
+            type: 'error',
+          })
+        }
         this.dialogFormVisible = false
         this.load()
       })
-      this.dialogFormVisible = false
-      this.load()
     },
     handleSubmit(){
       let username = Cookies.get("username");
@@ -257,11 +268,21 @@ export default {
           token:token,
         },
       }).then((res) => {
+        if (res.data.code === 200){
+          ElMessage({
+            message: '修改成功',
+            type: 'success',
+          })
+        }
+        else {
+          ElMessage({
+            message: '修改失败',
+            type: 'error',
+          })
+        }
         this.dialogFormVisible = false
         this.load()
       })
-      this.dialogFormVisible = false
-      this.load()
     },
     handleInsert(){
       let username = Cookies.get("username");
@@ -275,7 +296,18 @@ export default {
           token:token,
         },
       }).then((res) => {
-        console.log(res)
+        if (res.data.code === 200){
+          ElMessage({
+            message: '新增成功',
+            type: 'success',
+          })
+        }
+        else {
+          ElMessage({
+            message: '新增失败',
+            type: 'error',
+          })
+        }
         this.dialogFormVisible_insert = false;
         this.load()
       })

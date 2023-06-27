@@ -45,6 +45,7 @@
 <script>
 import axios from "@/localAxios";
 import Cookies from "js-cookie";
+import { ElMessage } from "element-plus";
 
 
 export default {
@@ -89,6 +90,13 @@ export default {
         });
     },
     handleBlock(e) {
+      if (e.status === "封禁"){
+        ElMessage({
+          message: '请不要重复拉黑',
+          type: 'error',
+        })
+        return;
+      }
       let username = Cookies.get("username");
       let token = Cookies.get("token");
       let id = e.id
@@ -102,10 +110,29 @@ export default {
           id:id
         }
       }).then((res)=>{
+        if (res.data.code === 200){
+          ElMessage({
+            message: '拉黑成功',
+            type: 'success',
+          })
+        }
+        else {
+          ElMessage({
+            message: '拉黑失败',
+            type: 'error',
+          })
+        }
         this.load()
       })
     },
     handleUnBlock(e) {
+      if (e.status === "正常"){
+        ElMessage({
+          message: '用户不需要解封',
+          type: 'error',
+        })
+        return;
+      }
       let username = Cookies.get("username");
       let token = Cookies.get("token");
       let id = e.id
@@ -119,6 +146,18 @@ export default {
           id:id
         }
       }).then((res)=>{
+        if (res.data.code === 200){
+          ElMessage({
+            message: '解封成功',
+            type: 'success',
+          })
+        }
+        else {
+          ElMessage({
+            message: '解封失败',
+            type: 'error',
+          })
+        }
         this.load()
       })
     },
