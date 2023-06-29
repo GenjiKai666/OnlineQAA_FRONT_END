@@ -61,18 +61,18 @@
         <el-form-item label="预约时间起" :label-width="formLabelWidth">
           <el-time-select
             v-model="this.form.startTime"
-            start="01:00"
-            step="00:30"
-            end="23:00"
+            start="00:05"
+            step="00:05"
+            end="23:55"
             placeholder="Select time"
           />
         </el-form-item>
         <el-form-item label="预约时间止" :label-width="formLabelWidth">
           <el-time-select
             v-model="this.form.endTime"
-            start="01:00"
-            step="00:30"
-            end="23:00"
+            start="00:05"
+            step="00:05"
+            end="23:55"
             placeholder="Select time"
           />
         </el-form-item>
@@ -121,6 +121,7 @@
 <script>
 import axios from "@/localAxios";
 import Cookies from "js-cookie";
+import { ElMessage } from "element-plus";
 export default {
 
   data() {
@@ -219,6 +220,18 @@ export default {
         }
       })
         .then((res) => {
+          if(res.data.code == 200){
+            ElMessage({
+              message: '预定成功',
+              type: 'success',
+            })
+          }
+          else{
+            ElMessage({
+              message: '预定失败',
+              type: 'error',
+            })
+          }
           this.dialogTableVisible = false;
           this.dialogReserveVisible = false;
           this.handleSelect();
